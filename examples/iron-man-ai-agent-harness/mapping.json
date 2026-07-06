@@ -1,0 +1,158 @@
+{
+  "meta": {
+    "movie": "Iron Man",
+    "movie_year": 2008,
+    "topic": "AI Agent Harness",
+    "source_type": "conversation",
+    "language": "EN",
+    "audience": "technical generalist",
+    "coverage_ratio": 0.86,
+    "generated_at": "2026-07-06T12:00:00Z"
+  },
+  "cards": [
+    {
+      "id": "concept_01",
+      "position": 1,
+      "concept": "The agent loop",
+      "definition": "The model proposes an action, the harness executes it, and the result returns as the model's next observation.",
+      "source_location": "conversation",
+      "movie_element": "Tony's first test flight of the Mark II, JARVIS on comms",
+      "movie_element_detail": "During the Mark II test flight, Tony calls the maneuver, the suit performs it, and JARVIS reports the result back — the altitude record he asks about, then the warning of a potentially fatal ice buildup — before Tony picks his next move.",
+      "mapping_line": "Tony calls the move, the suit flies it, JARVIS reports back — decide, act, listen, repeat.",
+      "mechanism_match": "strong",
+      "mapping_verdict": "strong",
+      "break_point": "Tony also sees and feels the sky himself; the AI perceives nothing except the text results the scaffolding hands back.",
+      "break_category": "extra_mechanism",
+      "bridge": "In real systems, software runs each requested action and pastes the outcome into the conversation as the AI's next input.",
+      "scores": {
+        "mechanism_fidelity": 4,
+        "recognizability": 5,
+        "breakage_clarity": 5,
+        "caption_writability": 4,
+        "overall": 4.5
+      }
+    },
+    {
+      "id": "concept_02",
+      "position": 2,
+      "concept": "Tools",
+      "definition": "The only actions the model can take are the typed functions the harness exposes.",
+      "source_location": "conversation",
+      "movie_element": "The armor's built-in arsenal in the Gulmira rescue",
+      "movie_element_detail": "In Gulmira, everything Tony does to the battlefield — repulsor blasts, the shoulder-mounted anti-personnel guns, flares, flight — is a function Stark built into the armor beforehand. His reach is exactly what the hardware offers.",
+      "mapping_line": "Suited up, Tony's entire arsenal is whatever he welded into the armor beforehand.",
+      "mechanism_match": "partial",
+      "mapping_verdict": "partial",
+      "break_point": "Tony steps out of the armor and acts freely; the AI has no body outside its given functions.",
+      "break_category": "extra_mechanism",
+      "bridge": "Tools are a fixed menu of functions the scaffolding offers; the AI can only request items from that menu.",
+      "scores": {
+        "mechanism_fidelity": 4,
+        "recognizability": 4,
+        "breakage_clarity": 4,
+        "caption_writability": 4,
+        "overall": 4.0
+      }
+    },
+    {
+      "id": "concept_03",
+      "position": 3,
+      "concept": "System prompt",
+      "definition": "A standing instruction block installed from outside that the model cannot edit.",
+      "source_location": "conversation",
+      "movie_element": "Yinsen's dying words: 'Don't waste your life'",
+      "movie_element_detail": "Yinsen gives Tony the instruction in the cave as he dies. Tony did not write it and cannot unhear it, and every choice he makes afterward — shutting down the weapons division, building the suit — plays out under it.",
+      "mapping_line": "Tony didn't choose Yinsen's last words, but every choice he makes afterward answers to them.",
+      "mechanism_match": "partial",
+      "mapping_verdict": "partial",
+      "break_point": "Tony carries the words as memory; the real instructions are re-pasted in front of the AI before every single turn.",
+      "break_category": "reversed_agency",
+      "bridge": "A system prompt is standing text the operator prepends to every request; the model reads it fresh each time and cannot rewrite it.",
+      "scores": {
+        "mechanism_fidelity": 3,
+        "recognizability": 4,
+        "breakage_clarity": 4,
+        "caption_writability": 4,
+        "overall": 3.8
+      }
+    },
+    {
+      "id": "concept_04",
+      "position": 4,
+      "concept": "Subagents",
+      "definition": "Separate model instances delegated tasks, each with its own context, returning only a final report.",
+      "source_location": "conversation",
+      "movie_element": "Pepper's solo mission into the Stark mainframe",
+      "movie_element_detail": "Tony tasks Pepper with copying the company's shipping manifests. She goes alone and handles what she finds her own way — discovering the Sector 16 files and the ransom video, slipping past Stane, leaving under Coulson's protection.",
+      "mapping_line": "Tony hands Pepper one job — she does it her own way, with what she alone knows.",
+      "mechanism_match": "partial",
+      "mapping_verdict": "partial",
+      "break_point": "In the film her findings flow to the agents, not to Tony; a real delegate reports back to its sender, then vanishes.",
+      "break_category": "missing_mechanism",
+      "bridge": "Real delegates are fresh AI instances: one assigned task, a private working conversation, and a single summary sent back to the requester.",
+      "scores": {
+        "mechanism_fidelity": 3,
+        "recognizability": 3,
+        "breakage_clarity": 4,
+        "caption_writability": 4,
+        "overall": 3.5
+      }
+    },
+    {
+      "id": "concept_05",
+      "position": 5,
+      "concept": "Permission gates",
+      "definition": "Before dangerous actions, the harness pauses for human approval.",
+      "source_location": "conversation",
+      "movie_element": "JARVIS holding the Mark III render until Tony orders fabrication",
+      "movie_element_detail": "JARVIS presents the finished Mark III design; Tony rejects the gold as ostentatious and asks for 'a little hot rod red in there'. Nothing gets built until Tony reviews the render and gives the order to fabricate.",
+      "mapping_line": "The new armor stays a picture on the screen until Tony says build it.",
+      "mechanism_match": "partial",
+      "mapping_verdict": "partial",
+      "break_point": "In the film the pause is JARVIS's manner; in reality it is enforced machinery the AI cannot talk its way past.",
+      "break_category": "missing_mechanism",
+      "bridge": "Before risky actions — deleting files, sending money — the harness freezes and a human must click approve.",
+      "scores": {
+        "mechanism_fidelity": 3,
+        "recognizability": 4,
+        "breakage_clarity": 4,
+        "caption_writability": 5,
+        "overall": 4.0
+      }
+    },
+    {
+      "id": "concept_07",
+      "position": 6,
+      "concept": "Hooks",
+      "definition": "User-configured checks that fire automatically on matching actions and can block them.",
+      "source_location": "conversation",
+      "movie_element": "Dum-E standing by with the fire extinguisher",
+      "movie_element_detail": "During Tony's thruster and flight-stabilizer tests, Dum-E stands by holding a fire extinguisher and sprays automatically — sometimes when Tony isn't even on fire, earning the threat: 'If you douse me again, and I'm not on fire, I'm donating you to a city college.'",
+      "mapping_line": "Dum-E waits with the extinguisher and sprays on his own the instant something looks like fire.",
+      "mechanism_match": "partial",
+      "mapping_verdict": "partial",
+      "break_point": "Dum-E can only douse a fire after it starts; a real check can also veto the action before it ever runs.",
+      "break_category": "temporal_distortion",
+      "bridge": "Hooks are small scripts the user registers; the harness runs them automatically around matching actions and they can cancel the action outright.",
+      "scores": {
+        "mechanism_fidelity": 4,
+        "recognizability": 4,
+        "breakage_clarity": 5,
+        "caption_writability": 5,
+        "overall": 4.5
+      }
+    }
+  ],
+  "overflow": [],
+  "unmapped": [
+    {
+      "id": "concept_06",
+      "concept": "Context compaction",
+      "definition": "When the conversation outgrows the model's window, older turns are summarized.",
+      "source_location": "conversation",
+      "direct_explanation": "When the conversation grows past what the AI can read at once, the software replaces the oldest exchanges with a short summary — detail is deliberately lost so the gist can keep fitting.",
+      "closest_movie_element": null,
+      "why_no_mapping": "Nothing in the film condenses accumulated information to fit a limited space; the arc reactor's miniaturization shrinks hardware, not information, which is a surface resemblance only."
+    }
+  ]
+}
