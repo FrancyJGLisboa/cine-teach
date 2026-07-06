@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Groundhog Day &times; AI Agent Memory &mdash; cine-teach</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0D1117; --primary: #E6EDF3; --secondary: #8B949E;
+  --warm: #E8964A; --cool: #58A6FF; --surface: #161B22;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--primary); font-family: 'Inter', sans-serif; }
+.deck { scroll-snap-type: y mandatory; overflow-y: scroll; height: 100vh; }
+.card {
+  scroll-snap-align: start; min-height: 100vh; display: flex; flex-direction: column;
+  justify-content: center; align-items: center; padding: 80px 24px 60px;
+}
+.card__frame { width: 100%; max-width: 680px; display: flex; flex-direction: column; min-height: 78vh; }
+.meta-line {
+  font-weight: 500; font-size: 0.75rem; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--secondary);
+}
+.card__number { margin-bottom: 2.5rem; }
+.anchor {
+  font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 2.4rem;
+  letter-spacing: -0.02em; line-height: 1.15;
+}
+.accent-line { width: 48px; height: 2px; background: var(--warm); margin: 1.8rem 0; }
+.concept {
+  font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.6rem;
+  letter-spacing: 0.01em; display: inline-block; align-self: flex-start;
+  border-bottom: 3px solid var(--warm); padding-bottom: 0.2rem; margin-bottom: 1.6rem;
+}
+.mapping { font-size: 1.1rem; line-height: 1.5; max-width: 34em; }
+.spacer { flex: 1 1 2rem; min-height: 2rem; }
+.break-tag {
+  background: var(--surface); border-radius: 8px; padding: 12px 16px;
+  font-size: 0.85rem; line-height: 1.4; color: var(--secondary);
+}
+.break-tag strong {
+  color: var(--warm); font-weight: 500; font-size: 0.7rem;
+  letter-spacing: 0.08em; text-transform: uppercase; display: block; margin-bottom: 4px;
+}
+.bridge { margin-top: 1rem; }
+.bridge__toggle {
+  background: none; border: 1px solid var(--cool); color: var(--cool);
+  font-family: 'Inter', sans-serif; font-weight: 500; font-size: 0.8rem;
+  padding: 8px 14px; border-radius: 999px; cursor: pointer;
+}
+.bridge__toggle:focus-visible { outline: 2px solid var(--cool); outline-offset: 2px; }
+.bridge__text {
+  display: none; margin-top: 0.8rem; background: var(--surface);
+  border-left: 2px solid var(--cool); border-radius: 0 8px 8px 0;
+  padding: 12px 16px; font-size: 1rem; line-height: 1.5;
+}
+.bridge.is-open .bridge__text { display: block; }
+.card__footer { margin-top: 2.5rem; }
+/* Title card */
+.card--title .card__frame { justify-content: center; align-items: flex-start; min-height: auto; }
+.title-rule { width: 100%; height: 1px; background: var(--cool); margin: 2rem 0; }
+.card--title h1 {
+  font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 3.2rem; line-height: 1.1;
+}
+.card--title .topic { font-size: 1.1rem; color: var(--secondary); margin-top: 1rem; }
+.card--title .count { margin-top: 2rem; }
+/* Limits card */
+.card--limits .card__frame { background: rgba(232, 150, 74, 0.08); border-radius: 12px; padding: 48px 40px; min-height: auto; }
+.card--limits h2 {
+  font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 2rem; color: var(--warm);
+  margin-bottom: 2rem;
+}
+.limit-row { margin-bottom: 1.6rem; }
+.limit-row h3 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.2rem; margin-bottom: 0.4rem; }
+.limit-row p { font-size: 0.95rem; line-height: 1.5; color: var(--primary); }
+/* Coverage card */
+.card--coverage h2 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.6rem; margin-bottom: 1.6rem; }
+.coverage-grid { width: 100%; border-collapse: collapse; }
+.coverage-grid td {
+  padding: 10px 12px; border-bottom: 1px solid var(--surface);
+  font-weight: 500; font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--secondary); vertical-align: top;
+}
+.coverage-grid td:first-child { color: var(--primary); }
+.badge { padding: 3px 10px; border-radius: 999px; font-size: 0.7rem; white-space: nowrap; }
+.badge--strong { background: var(--cool); color: var(--bg); }
+.badge--partial { border: 1px solid var(--cool); color: var(--secondary); }
+.badge--none { background: var(--warm); color: var(--bg); }
+@media (max-width: 480px) {
+  .anchor { font-size: 1.8rem; }
+  .card--title h1 { font-size: 2.4rem; }
+  .card { padding: 48px 20px 40px; }
+}
+</style>
+</head>
+<body>
+<div class="deck">
+  <section class="card card--title">
+    <div class="card__frame">
+      <div class="meta-line">cine-teach</div>
+      <div class="title-rule"></div>
+      <h1>Groundhog Day &times; AI Agent Memory</h1>
+      <p class="topic">One concept, one scene, one card.</p>
+      <div class="meta-line count">6 cards &middot; coverage 86%</div>
+    </div>
+  </section>
+  <section class="card card--concept" data-position="1">
+    <div class="card__frame">
+      <div class="meta-line card__number">Card 01</div>
+      <div class="anchor">The townspeople of Punxsutawney</div>
+      <div class="accent-line"></div>
+      <div class="concept">Statelessness</div>
+      <p class="mapping">The AI is everyone else in Punxsutawney — every conversation is genuinely their first morning.</p>
+      <div class="spacer"></div>
+      <div class="break-tag"><strong>Where it breaks</strong>Unlike the townspeople, the model has no loop running at all — there is no tomorrow where things might be different.</div>
+      <div class="bridge" aria-hidden="true">
+        <button class="bridge__toggle" aria-expanded="false" aria-label="Show bridge to reality">&#8617; Back to reality</button>
+        <p class="bridge__text">The chat application replaying history each turn is the actual Phil — the one accumulating context across turns.</p>
+      </div>
+      <div class="meta-line card__footer">cine-teach &middot; Groundhog Day &middot; 1/6</div>
+    </div>
+  </section>
+  <section class="card card--concept" data-position="2">
+    <div class="card__frame">
+      <div class="meta-line card__number">Card 02</div>
+      <div class="anchor">The 6:00 AM clock flip</div>
+      <div class="accent-line"></div>
+      <div class="concept">Context window</div>
+      <p class="mapping">One day is all the room Phil has — anything that doesn&#x27;t fit never happened.</p>
+      <div class="spacer"></div>
+      <div class="break-tag"><strong>Where it breaks</strong>Phil&#x27;s day always has identical length; a context window fills as the conversation grows and can overflow mid-task.</div>
+      <div class="bridge" aria-hidden="true">
+        <button class="bridge__toggle" aria-expanded="false" aria-label="Show bridge to reality">&#8617; Back to reality</button>
+        <p class="bridge__text">The window is a hard budget of text; long sessions must summarize or drop the oldest material to keep fitting.</p>
+      </div>
+      <div class="meta-line card__footer">cine-teach &middot; Groundhog Day &middot; 2/6</div>
+    </div>
+  </section>
+  <section class="card card--concept" data-position="3">
+    <div class="card__frame">
+      <div class="meta-line card__number">Card 03</div>
+      <div class="anchor">Phil Connors himself</div>
+      <div class="accent-line"></div>
+      <div class="concept">Agent memory</div>
+      <p class="mapping">Memory turns the AI into Phil — it walks in already knowing your name and your story.</p>
+      <div class="spacer"></div>
+      <div class="break-tag"><strong>Where it breaks</strong>Phil&#x27;s memory lives inside him; agent memory lives outside — the model itself never learns or changes.</div>
+      <div class="bridge" aria-hidden="true">
+        <button class="bridge__toggle" aria-expanded="false" aria-label="Show bridge to reality">&#8617; Back to reality</button>
+        <p class="bridge__text">Memory is an external notebook the application writes to and reads back into the model at the start of each session.</p>
+      </div>
+      <div class="meta-line card__footer">cine-teach &middot; Groundhog Day &middot; 3/6</div>
+    </div>
+  </section>
+  <section class="card card--concept" data-position="4">
+    <div class="card__frame">
+      <div class="meta-line card__number">Card 04</div>
+      <div class="anchor">Phil choosing what to master each loop</div>
+      <div class="accent-line"></div>
+      <div class="concept">Memory writes</div>
+      <p class="mapping">Phil can&#x27;t relive everything at once — each day he chooses what deserves to carry forward.</p>
+      <div class="spacer"></div>
+      <div class="break-tag"><strong>Where it breaks</strong>Phil gets unlimited retries to find what matters; a memory system must decide what to keep in real time, first pass.</div>
+      <div class="bridge" aria-hidden="true">
+        <button class="bridge__toggle" aria-expanded="false" aria-label="Show bridge to reality">&#8617; Back to reality</button>
+        <p class="bridge__text">A write policy scores each fact for durable value; keep too much and retrieval drowns, keep too little and the agent forgets you.</p>
+      </div>
+      <div class="meta-line card__footer">cine-teach &middot; Groundhog Day &middot; 4/6</div>
+    </div>
+  </section>
+  <section class="card card--concept" data-position="5">
+    <div class="card__frame">
+      <div class="meta-line card__number">Card 05</div>
+      <div class="anchor">Phil catching the boy falling from the tree</div>
+      <div class="accent-line"></div>
+      <div class="concept">Retrieval</div>
+      <p class="mapping">Knowing everything is useless unless the right memory surfaces at the exact moment it&#x27;s needed.</p>
+      <div class="spacer"></div>
+      <div class="break-tag"><strong>Where it breaks</strong>Phil recalls from lived experience; retrieval is a similarity lookup that can confidently fetch the wrong memory.</div>
+      <div class="bridge" aria-hidden="true">
+        <button class="bridge__toggle" aria-expanded="false" aria-label="Show bridge to reality">&#8617; Back to reality</button>
+        <p class="bridge__text">Each turn the system searches the store for entries resembling the current request and injects the best matches into the window.</p>
+      </div>
+      <div class="meta-line card__footer">cine-teach &middot; Groundhog Day &middot; 5/6</div>
+    </div>
+  </section>
+  <section class="card card--concept" data-position="6">
+    <div class="card__frame">
+      <div class="meta-line card__number">Card 06</div>
+      <div class="anchor">The Rita slap montage</div>
+      <div class="accent-line"></div>
+      <div class="concept">Memory is not understanding</div>
+      <p class="mapping">Phil has every fact about Rita memorized and still gets slapped — stored facts aren&#x27;t understanding.</p>
+      <div class="spacer"></div>
+      <div class="break-tag"><strong>Where it breaks</strong>In the film the missing piece is sincerity; in an agent it is reasoning over the memories — not feelings.</div>
+      <div class="bridge" aria-hidden="true">
+        <button class="bridge__toggle" aria-expanded="false" aria-label="Show bridge to reality">&#8617; Back to reality</button>
+        <p class="bridge__text">Memory only supplies raw material; the model must still reason correctly over what it retrieves, and that step can fail.</p>
+      </div>
+      <div class="meta-line card__footer">cine-teach &middot; Groundhog Day &middot; 6/6</div>
+    </div>
+  </section>
+  <section class="card card--limits">
+    <div class="card__frame">
+      <h2>Where the analogy ends</h2>
+      <div class="limit-row"><h3>Memory poisoning</h3><p>A prompt injection that normally dies with the session instead persists in memory and resurfaces days later in a different context — a sleeper exploit with no movie parallel.</p></div>
+      <div class="meta-line card__footer">These ideas are genuinely new &mdash; the movie has no shape for them.</div>
+    </div>
+  </section>
+  <section class="card card--coverage">
+    <div class="card__frame">
+      <h2>Coverage</h2>
+      <table class="coverage-grid"><tr><td>Statelessness</td><td>The townspeople of Punxsutawney</td><td><span class="badge badge--strong">strong</span></td></tr><tr><td>Context window</td><td>The 6:00 AM clock flip</td><td><span class="badge badge--strong">strong</span></td></tr><tr><td>Agent memory</td><td>Phil Connors himself</td><td><span class="badge badge--strong">strong</span></td></tr><tr><td>Memory writes</td><td>Phil choosing what to master each loop</td><td><span class="badge badge--strong">strong</span></td></tr><tr><td>Retrieval</td><td>Phil catching the boy falling from the tree</td><td><span class="badge badge--strong">strong</span></td></tr><tr><td>Memory is not understanding</td><td>The Rita slap montage</td><td><span class="badge badge--strong">strong</span></td></tr><tr><td>Memory poisoning</td><td>&mdash;</td><td><span class="badge badge--none">none</span></td></tr></table>
+      <div class="meta-line card__footer">cine-teach &middot; Groundhog Day (1993) &middot; generated 2026-07-06</div>
+    </div>
+  </section>
+</div>
+<script>
+document.querySelectorAll('.bridge__toggle').forEach(function (btn) {
+  btn.addEventListener('click', function () {
+    var bridge = btn.closest('.bridge');
+    var open = bridge.classList.toggle('is-open');
+    bridge.setAttribute('aria-hidden', String(!open));
+    btn.setAttribute('aria-expanded', String(open));
+  });
+});
+</script>
+</body>
+</html>

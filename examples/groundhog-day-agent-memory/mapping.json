@@ -1,0 +1,158 @@
+{
+  "meta": {
+    "movie": "Groundhog Day",
+    "movie_year": 1993,
+    "topic": "AI Agent Memory",
+    "source_type": "conversation",
+    "language": "EN",
+    "audience": "technical generalist",
+    "coverage_ratio": 0.86,
+    "generated_at": "2026-07-06T12:00:00Z"
+  },
+  "cards": [
+    {
+      "id": "concept_01",
+      "position": 1,
+      "concept": "Statelessness",
+      "definition": "The model retains nothing between requests; every turn starts from zero.",
+      "source_location": "conversation",
+      "movie_element": "The townspeople of Punxsutawney",
+      "movie_element_detail": "Every morning, every person Phil meets has zero memory of the previous loop. They greet him identically, react identically, and accumulate nothing across days.",
+      "mapping_line": "The AI is everyone else in Punxsutawney — every conversation is genuinely their first morning.",
+      "mechanism_match": "strong",
+      "mapping_verdict": "strong",
+      "break_point": "Unlike the townspeople, the model has no loop running at all — there is no tomorrow where things might be different.",
+      "break_category": "missing_mechanism",
+      "bridge": "The chat application replaying history each turn is the actual Phil — the one accumulating context across turns.",
+      "scores": {
+        "mechanism_fidelity": 5,
+        "recognizability": 5,
+        "breakage_clarity": 5,
+        "caption_writability": 5,
+        "overall": 5.0
+      }
+    },
+    {
+      "id": "concept_02",
+      "position": 2,
+      "concept": "Context window",
+      "definition": "The fixed amount of text the model can consider at once; anything beyond it is invisible.",
+      "source_location": "conversation",
+      "movie_element": "The 6:00 AM clock flip",
+      "movie_element_detail": "Whatever Phil wants to accomplish must fit inside a single day. At 6:00 AM the slate wipes clean; nothing unfinished carries over the reset.",
+      "mapping_line": "One day is all the room Phil has — anything that doesn't fit never happened.",
+      "mechanism_match": "strong",
+      "mapping_verdict": "strong",
+      "break_point": "Phil's day always has identical length; a context window fills as the conversation grows and can overflow mid-task.",
+      "break_category": "scale_mismatch",
+      "bridge": "The window is a hard budget of text; long sessions must summarize or drop the oldest material to keep fitting.",
+      "scores": {
+        "mechanism_fidelity": 4,
+        "recognizability": 5,
+        "breakage_clarity": 4,
+        "caption_writability": 5,
+        "overall": 4.5
+      }
+    },
+    {
+      "id": "concept_03",
+      "position": 3,
+      "concept": "Agent memory",
+      "definition": "An external store that persists selected knowledge across sessions and feeds it back to the model.",
+      "source_location": "conversation",
+      "movie_element": "Phil Connors himself",
+      "movie_element_detail": "Phil is the only being in the film who carries knowledge across resets. Each loop he walks in already knowing everyone's name, routine, and story — and acts better because of it.",
+      "mapping_line": "Memory turns the AI into Phil — it walks in already knowing your name and your story.",
+      "mechanism_match": "strong",
+      "mapping_verdict": "strong",
+      "break_point": "Phil's memory lives inside him; agent memory lives outside — the model itself never learns or changes.",
+      "break_category": "collapsed_distinction",
+      "bridge": "Memory is an external notebook the application writes to and reads back into the model at the start of each session.",
+      "scores": {
+        "mechanism_fidelity": 5,
+        "recognizability": 5,
+        "breakage_clarity": 5,
+        "caption_writability": 5,
+        "overall": 5.0
+      }
+    },
+    {
+      "id": "concept_04",
+      "position": 4,
+      "concept": "Memory writes",
+      "definition": "The system must decide which facts from a session are worth persisting; storing everything makes memory useless.",
+      "source_location": "conversation",
+      "movie_element": "Phil choosing what to master each loop",
+      "movie_element_detail": "Piano, ice sculpting, French poetry, everyone's life story — Phil cannot pursue everything at once. Each loop he selects what deserves his finite day, and only what he deliberately practices compounds.",
+      "mapping_line": "Phil can't relive everything at once — each day he chooses what deserves to carry forward.",
+      "mechanism_match": "strong",
+      "mapping_verdict": "strong",
+      "break_point": "Phil gets unlimited retries to find what matters; a memory system must decide what to keep in real time, first pass.",
+      "break_category": "extra_mechanism",
+      "bridge": "A write policy scores each fact for durable value; keep too much and retrieval drowns, keep too little and the agent forgets you.",
+      "scores": {
+        "mechanism_fidelity": 4,
+        "recognizability": 4,
+        "breakage_clarity": 4,
+        "caption_writability": 4,
+        "overall": 4.0
+      }
+    },
+    {
+      "id": "concept_05",
+      "position": 5,
+      "concept": "Retrieval",
+      "definition": "Stored memories are searched each turn and only the most relevant few are injected into context.",
+      "source_location": "conversation",
+      "movie_element": "Phil catching the boy falling from the tree",
+      "movie_element_detail": "Phil is at the right spot at the right second because the memory of the fall surfaces exactly when needed. Knowing everything is worthless without the right recall at the right moment.",
+      "mapping_line": "Knowing everything is useless unless the right memory surfaces at the exact moment it's needed.",
+      "mechanism_match": "strong",
+      "mapping_verdict": "strong",
+      "break_point": "Phil recalls from lived experience; retrieval is a similarity lookup that can confidently fetch the wrong memory.",
+      "break_category": "missing_mechanism",
+      "bridge": "Each turn the system searches the store for entries resembling the current request and injects the best matches into the window.",
+      "scores": {
+        "mechanism_fidelity": 4,
+        "recognizability": 5,
+        "breakage_clarity": 4,
+        "caption_writability": 4,
+        "overall": 4.3
+      }
+    },
+    {
+      "id": "concept_06",
+      "position": 6,
+      "concept": "Memory is not understanding",
+      "definition": "A full memory store supplies facts, not judgment; agents can hold every fact and still act wrongly.",
+      "source_location": "conversation",
+      "movie_element": "The Rita slap montage",
+      "movie_element_detail": "Phil has every fact about Rita memorized — her favorite drink, her toast to world peace, her French poetry — and gets slapped night after night. The data is perfect; the use of it is hollow.",
+      "mapping_line": "Phil has every fact about Rita memorized and still gets slapped — stored facts aren't understanding.",
+      "mechanism_match": "strong",
+      "mapping_verdict": "strong",
+      "break_point": "In the film the missing piece is sincerity; in an agent it is reasoning over the memories — not feelings.",
+      "break_category": "collapsed_distinction",
+      "bridge": "Memory only supplies raw material; the model must still reason correctly over what it retrieves, and that step can fail.",
+      "scores": {
+        "mechanism_fidelity": 4,
+        "recognizability": 5,
+        "breakage_clarity": 5,
+        "caption_writability": 5,
+        "overall": 4.8
+      }
+    }
+  ],
+  "overflow": [],
+  "unmapped": [
+    {
+      "id": "concept_07",
+      "concept": "Memory poisoning",
+      "definition": "An attacker plants false data in long-term memory that resurfaces in future privileged sessions.",
+      "source_location": "conversation",
+      "direct_explanation": "A prompt injection that normally dies with the session instead persists in memory and resurfaces days later in a different context — a sleeper exploit with no movie parallel.",
+      "closest_movie_element": null,
+      "why_no_mapping": "The film has no adversarial actors and no mechanism for planted false memories that persist across resets."
+    }
+  ]
+}

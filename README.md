@@ -2,8 +2,10 @@
 
 Map any technical concept onto any movie. One concept, one scene, one card.
 
-<!-- TODO: Replace with actual card image once first deck is rendered -->
-<!-- ![Example card: Groundhog Day × Statelessness](assets/example_card.png) -->
+![Example card: Groundhog Day × Statelessness](assets/example_card.png)
+
+*From the example deck [Groundhog Day × AI Agent Memory](examples/groundhog-day-agent-memory/) —
+6 cards, rendered with `scripts/render.py`.*
 
 ---
 
@@ -110,8 +112,21 @@ cine-teach/
 │           ├── card_schema.md            # JSON interchange format
 │           ├── card_design.md            # Visual design system: palette, type, layout
 │           └── breakage_taxonomy.md      # 8 categories of analogy failure
+├── scripts/
+│   └── render.py                         # Stage 3: mapping.json → HTML deck (stdlib only)
+├── examples/
+│   └── groundhog-day-agent-memory/       # First complete deck: mapping.json + deck.html
 └── README.md
 ```
+
+Render any mapping to a deck:
+
+```
+python3 scripts/render.py examples/groundhog-day-agent-memory/mapping.json
+```
+
+The script enforces the schema's quality gates (mechanism fidelity ≥ 3, overall ≥ 3.0,
+mandatory break points and bridges) and refuses to render a deck that fails them.
 
 ## Quality gates
 
@@ -133,11 +148,10 @@ Building in public. Current state:
 - [x] Skill folder: core rules, scoring rubric, schema, design system, breakage
   taxonomy
 - [x] Plugin packaging (`.claude-plugin/`), installable via `/plugin`
-- [ ] HTML card renderer (template + generation script)
+- [x] HTML card renderer (`scripts/render.py`, stdlib-only, validates quality gates)
+- [x] First complete example deck (Groundhog Day × Agent Memory)
 - [ ] PNG export via Playwright
 - [ ] PDF export
-- [ ] CLI entry point
-- [ ] First complete example deck (Groundhog Day × Agent Memory)
 - [ ] GitHub Pages hosting for example decks
 - [ ] Eval suite: 5 movie × topic combinations tested against the rubric
 
