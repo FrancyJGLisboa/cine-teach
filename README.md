@@ -77,7 +77,7 @@ mapping logic.
 This repo is a Claude Code plugin and its own marketplace. Inside Claude Code:
 
 ```
-/plugin marketplace add <github-owner>/cine-teach   # or a local absolute path to this folder
+/plugin marketplace add FrancyJGLisboa/cine-teach
 /plugin install cine-teach@cine-teach
 ```
 
