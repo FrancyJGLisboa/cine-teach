@@ -1,0 +1,11 @@
+{
+  "name": "cine-teach",
+  "version": "0.1.0",
+  "description": "Map technical concepts onto movies the user knows and render visual concept-card decks (HTML/PNG/PDF) with mechanism-matched analogies, mandatory break points, and bridges back to reality.",
+  "author": {
+    "name": "Francy Lisboa Charuto",
+    "email": "agrolisboa@gmail.com"
+  },
+  "license": "MIT",
+  "keywords": ["teaching", "analogies", "movies", "concept-cards", "visual-learning"]
+}

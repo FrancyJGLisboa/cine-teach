@@ -1,0 +1,19 @@
+{
+  "name": "cine-teach",
+  "owner": {
+    "name": "Francy Lisboa Charuto",
+    "email": "agrolisboa@gmail.com"
+  },
+  "metadata": {
+    "description": "Marketplace for the cine-teach skill: movie-analogy concept cards.",
+    "version": "0.1.0"
+  },
+  "plugins": [
+    {
+      "name": "cine-teach",
+      "source": "./",
+      "description": "Map technical concepts onto movies the user knows and render visual concept-card decks (HTML/PNG/PDF) with mechanism-matched analogies, mandatory break points, and bridges back to reality.",
+      "category": "learning"
+    }
+  ]
+}
