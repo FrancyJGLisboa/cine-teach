@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>cine-teach — decks</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root { --bg:#0D1117; --primary:#E6EDF3; --secondary:#8B949E; --warm:#E8964A; --cool:#58A6FF; --surface:#161B22; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:var(--bg); color:var(--primary); font-family:'Inter',sans-serif;
+         min-height:100vh; display:flex; align-items:center; justify-content:center; padding:24px; }
+  main { max-width:680px; width:100%; }
+  .meta { font-weight:500; font-size:.75rem; letter-spacing:.08em; text-transform:uppercase; color:var(--secondary); }
+  hr { border:none; height:1px; background:var(--cool); margin:2rem 0; }
+  h1 { font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:3.2rem; line-height:1.1; }
+  .tagline { font-size:1.1rem; color:var(--secondary); margin-top:1rem; }
+  ul { list-style:none; margin-top:2.5rem; }
+  li a { display:block; background:var(--surface); border-radius:8px; padding:16px 20px;
+         color:var(--primary); text-decoration:none; margin-bottom:12px;
+         border-left:2px solid var(--warm); }
+  li a:hover { border-left-color:var(--cool); }
+  li a .meta { margin-top:4px; display:block; }
+  footer { margin-top:3rem; }
+  footer a { color:var(--cool); text-decoration:none; }
+</style>
+</head>
+<body>
+<main>
+  <div class="meta">cine-teach</div>
+  <hr>
+  <h1>Movies that teach.</h1>
+  <p class="tagline">One concept, one scene, one card — with the break point where the analogy stops being true.</p>
+  <ul>
+    <li><a href="examples/groundhog-day-agent-memory/deck.html">
+      Groundhog Day × AI Agent Memory
+      <span class="meta">6 cards · coverage 86%</span>
+    </a></li>
+  </ul>
+  <footer class="meta"><a href="https://github.com/FrancyJGLisboa/cine-teach">github.com/FrancyJGLisboa/cine-teach</a></footer>
+</main>
+</body>
+</html>

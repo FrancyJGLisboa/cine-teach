@@ -152,7 +152,7 @@ Building in public. Current state:
 - [x] First complete example deck (Groundhog Day × Agent Memory)
 - [ ] PNG export via Playwright
 - [ ] PDF export
-- [ ] GitHub Pages hosting for example decks
+- [x] GitHub Pages hosting for example decks — https://francyjglisboa.github.io/cine-teach/
 - [ ] Eval suite: 5 movie × topic combinations tested against the rubric
 
 ## License
