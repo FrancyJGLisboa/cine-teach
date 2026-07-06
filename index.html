@@ -6,40 +6,49 @@
 <title>cine-teach — decks</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,900;1,9..144,400&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
 <style>
-  :root { --bg:#0D1117; --primary:#E6EDF3; --secondary:#8B949E; --warm:#E8964A; --cool:#58A6FF; --surface:#161B22; }
+  :root { --bg:#0A0908; --primary:#F2EDE4; --secondary:#A39A8B; --amber:#E5A00D; --velvet:#B4433C; --surface:#141110; }
   * { margin:0; padding:0; box-sizing:border-box; }
-  body { background:var(--bg); color:var(--primary); font-family:'Inter',sans-serif;
-         min-height:100vh; display:flex; align-items:center; justify-content:center; padding:24px; }
-  main { max-width:680px; width:100%; }
-  .meta { font-weight:500; font-size:.75rem; letter-spacing:.08em; text-transform:uppercase; color:var(--secondary); }
-  hr { border:none; height:1px; background:var(--cool); margin:2rem 0; }
-  h1 { font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:3.2rem; line-height:1.1; }
-  .tagline { font-size:1.1rem; color:var(--secondary); margin-top:1rem; }
-  ul { list-style:none; margin-top:2.5rem; }
-  li a { display:block; background:var(--surface); border-radius:8px; padding:16px 20px;
-         color:var(--primary); text-decoration:none; margin-bottom:12px;
-         border-left:2px solid var(--warm); }
-  li a:hover { border-left-color:var(--cool); }
-  li a .meta { margin-top:4px; display:block; }
-  footer { margin-top:3rem; }
-  footer a { color:var(--cool); text-decoration:none; }
+  html { background:#000; }
+  html::before, html::after { content:''; position:fixed; left:0; right:0; height:14px; background:#000; z-index:12; pointer-events:none; }
+  html::before { top:0; } html::after { bottom:0; }
+  body { background:var(--bg); color:var(--primary); font-family:'Fraunces',Georgia,serif;
+         min-height:100vh; display:flex; align-items:center; justify-content:center; padding:48px 28px; }
+  body::before { content:''; position:fixed; inset:0; z-index:10; pointer-events:none;
+         background:radial-gradient(ellipse at center, transparent 52%, rgba(0,0,0,.5) 100%); }
+  body::after { content:''; position:fixed; inset:0; z-index:11; pointer-events:none; opacity:.05;
+         background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E"); }
+  main { max-width:640px; width:100%; }
+  .mono { font-family:'Courier Prime',monospace; font-size:.78rem; letter-spacing:.14em; text-transform:uppercase; color:var(--secondary); }
+  .eyebrow { color:var(--amber); }
+  hr { border:none; height:1px; background:var(--secondary); opacity:.5; margin:1.8rem 0 2.4rem; }
+  h1 { font-weight:900; font-size:clamp(3rem,10vw,4.4rem); line-height:1.02; letter-spacing:-.015em; }
+  .tagline { font-style:italic; font-size:1.1rem; color:var(--secondary); margin-top:1.4rem; }
+  ul { list-style:none; margin-top:2.8rem; }
+  li a { display:block; background:var(--surface); border-left:3px solid var(--amber);
+         padding:18px 22px; color:var(--primary); text-decoration:none; margin-bottom:14px;
+         font-weight:400; font-size:1.2rem; transition:all .15s ease; }
+  li a:hover { background:var(--primary); color:var(--bg); }
+  li a:hover .mono { color:var(--bg); }
+  li a .mono { margin-top:6px; display:block; }
+  footer { margin-top:3.2rem; }
+  footer a { color:var(--amber); text-decoration:none; }
 </style>
 </head>
 <body>
 <main>
-  <div class="meta">cine-teach</div>
+  <div class="mono eyebrow">A cine-teach production</div>
   <hr>
   <h1>Movies that teach.</h1>
   <p class="tagline">One concept, one scene, one card — with the break point where the analogy stops being true.</p>
   <ul>
     <li><a href="examples/groundhog-day-agent-memory/deck.html">
       Groundhog Day × AI Agent Memory
-      <span class="meta">6 cards · coverage 86%</span>
+      <span class="mono">6 cards · coverage 86%</span>
     </a></li>
   </ul>
-  <footer class="meta"><a href="https://github.com/FrancyJGLisboa/cine-teach">github.com/FrancyJGLisboa/cine-teach</a></footer>
+  <footer class="mono"><a href="https://github.com/FrancyJGLisboa/cine-teach">github.com/FrancyJGLisboa/cine-teach</a></footer>
 </main>
 </body>
 </html>

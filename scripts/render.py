@@ -39,95 +39,147 @@ def validate(data):
     return errors
 
 
+# SVG film grain, inlined as a data URI so the deck stays a single file.
+GRAIN = ("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E"
+         "%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E"
+         "%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E")
+
 CSS = """
 :root {
-  --bg: #0D1117; --primary: #E6EDF3; --secondary: #8B949E;
-  --warm: #E8964A; --cool: #58A6FF; --surface: #161B22;
+  --bg: #0A0908; --primary: #F2EDE4; --secondary: #A39A8B;
+  --amber: #E5A00D; --velvet: #B4433C; --surface: #141110;
+  --serif: 'Fraunces', Georgia, serif;
+  --mono: 'Courier Prime', 'Courier New', monospace;
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
-body { background: var(--bg); color: var(--primary); font-family: 'Inter', sans-serif; }
-.deck { scroll-snap-type: y mandatory; overflow-y: scroll; height: 100vh; }
+html { scroll-behavior: smooth; background: #000; }
+html::before, html::after {
+  content: ''; position: fixed; left: 0; right: 0; height: 14px;
+  background: #000; z-index: 12; pointer-events: none;
+}
+html::before { top: 0; } html::after { bottom: 0; }
+body { background: var(--bg); color: var(--primary); font-family: var(--serif); }
+body::before {
+  content: ''; position: fixed; inset: 0; z-index: 10; pointer-events: none;
+  background: radial-gradient(ellipse at center, transparent 52%, rgba(0,0,0,0.5) 100%);
+}
+body::after {
+  content: ''; position: fixed; inset: 0; z-index: 11; pointer-events: none;
+  background-image: url("__GRAIN__"); opacity: 0.05;
+}
+.deck { scroll-snap-type: y mandatory; overflow-y: scroll; height: 100vh; height: 100dvh; }
 .card {
-  scroll-snap-align: start; min-height: 100vh; display: flex; flex-direction: column;
-  justify-content: center; align-items: center; padding: 80px 24px 60px;
+  scroll-snap-align: start; min-height: 100vh; min-height: 100dvh;
+  display: flex; flex-direction: column; justify-content: center; align-items: center;
+  padding: 72px 28px 56px;
 }
-.card__frame { width: 100%; max-width: 680px; display: flex; flex-direction: column; min-height: 78vh; }
-.meta-line {
-  font-weight: 500; font-size: 0.75rem; letter-spacing: 0.08em;
-  text-transform: uppercase; color: var(--secondary);
+.card__frame { width: 100%; max-width: 640px; display: flex; flex-direction: column; min-height: 76vh; }
+@supports (animation-timeline: view()) {
+  .card__frame {
+    animation: rise both; animation-timeline: view(); animation-range: entry 5% entry 55%;
+  }
 }
-.card__number { margin-bottom: 2.5rem; }
+@keyframes rise { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: none; } }
+@keyframes fadeup { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+.mono {
+  font-family: var(--mono); font-weight: 400; font-size: 0.78rem;
+  letter-spacing: 0.14em; text-transform: uppercase; color: var(--secondary);
+}
+.card__number { margin-bottom: 2.6rem; }
+.card__number b { color: var(--amber); font-weight: 700; }
 .anchor {
-  font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 2.4rem;
-  letter-spacing: -0.02em; line-height: 1.15;
+  font-weight: 900; font-size: clamp(2.1rem, 6vw, 3rem);
+  letter-spacing: -0.01em; line-height: 1.06;
 }
-.accent-line { width: 48px; height: 2px; background: var(--warm); margin: 1.8rem 0; }
+.sprockets {
+  width: 128px; height: 11px; margin: 1.9rem 0;
+  background: repeating-linear-gradient(90deg, var(--amber) 0 9px, transparent 9px 21px);
+  opacity: 0.9;
+}
 .concept {
-  font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.6rem;
-  letter-spacing: 0.01em; display: inline-block; align-self: flex-start;
-  border-bottom: 3px solid var(--warm); padding-bottom: 0.2rem; margin-bottom: 1.6rem;
+  font-family: var(--mono); font-weight: 700; font-size: 1.05rem;
+  letter-spacing: 0.12em; text-transform: uppercase; color: var(--primary);
+  display: inline-block; align-self: flex-start;
+  border-bottom: 3px solid var(--amber); padding-bottom: 0.3rem; margin-bottom: 1.7rem;
 }
-.mapping { font-size: 1.1rem; line-height: 1.5; max-width: 34em; }
+.mapping { font-weight: 400; font-size: 1.25rem; line-height: 1.55; max-width: 30em; }
 .spacer { flex: 1 1 2rem; min-height: 2rem; }
 .break-tag {
-  background: var(--surface); border-radius: 8px; padding: 12px 16px;
-  font-size: 0.85rem; line-height: 1.4; color: var(--secondary);
+  border-left: 3px solid var(--amber); background: rgba(229, 160, 13, 0.06);
+  padding: 14px 18px; font-family: var(--mono); font-size: 0.88rem;
+  line-height: 1.5; color: var(--secondary);
 }
 .break-tag strong {
-  color: var(--warm); font-weight: 500; font-size: 0.7rem;
-  letter-spacing: 0.08em; text-transform: uppercase; display: block; margin-bottom: 4px;
+  display: block; margin-bottom: 5px; color: var(--amber); font-weight: 700;
+  font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase;
 }
-.bridge { margin-top: 1rem; }
+.bridge { margin-top: 1.1rem; }
 .bridge__toggle {
-  background: none; border: 1px solid var(--cool); color: var(--cool);
-  font-family: 'Inter', sans-serif; font-weight: 500; font-size: 0.8rem;
-  padding: 8px 14px; border-radius: 999px; cursor: pointer;
+  background: none; border: 1px solid var(--secondary); color: var(--primary);
+  font-family: var(--mono); font-weight: 700; font-size: 0.74rem;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  padding: 10px 16px; cursor: pointer; transition: all 0.15s ease;
 }
-.bridge__toggle:focus-visible { outline: 2px solid var(--cool); outline-offset: 2px; }
+.bridge__toggle:hover { background: var(--primary); color: var(--bg); border-color: var(--primary); }
+.bridge__toggle:focus-visible { outline: 2px solid var(--amber); outline-offset: 2px; }
 .bridge__text {
-  display: none; margin-top: 0.8rem; background: var(--surface);
-  border-left: 2px solid var(--cool); border-radius: 0 8px 8px 0;
-  padding: 12px 16px; font-size: 1rem; line-height: 1.5;
+  display: none; margin-top: 0.9rem; border-left: 3px solid var(--primary);
+  background: var(--surface); padding: 14px 18px;
+  font-family: var(--mono); font-size: 0.92rem; line-height: 1.55;
 }
-.bridge.is-open .bridge__text { display: block; }
-.card__footer { margin-top: 2.5rem; }
+.bridge.is-open .bridge__text { display: block; animation: fadeup 0.3s ease both; }
+.card__footer { margin-top: 2.6rem; }
 /* Title card */
-.card--title .card__frame { justify-content: center; align-items: flex-start; min-height: auto; }
-.title-rule { width: 100%; height: 1px; background: var(--cool); margin: 2rem 0; }
+.card--title .card__frame { justify-content: center; min-height: auto; }
+.card--title .eyebrow { color: var(--amber); animation: fadeup 0.7s ease 0.1s both; }
+.title-rule { width: 100%; height: 1px; background: var(--secondary); opacity: 0.5; margin: 1.8rem 0 2.4rem; animation: fadeup 0.7s ease 0.25s both; }
 .card--title h1 {
-  font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 3.2rem; line-height: 1.1;
+  font-weight: 900; font-size: clamp(3rem, 10vw, 4.6rem); line-height: 1.02;
+  letter-spacing: -0.015em; animation: fadeup 0.7s ease 0.4s both;
 }
-.card--title .topic { font-size: 1.1rem; color: var(--secondary); margin-top: 1rem; }
-.card--title .count { margin-top: 2rem; }
+.card--title .cross {
+  font-family: var(--mono); color: var(--amber); font-size: 1.5rem;
+  margin: 1.4rem 0; animation: fadeup 0.7s ease 0.55s both;
+}
+.card--title .topic {
+  font-family: var(--mono); font-weight: 700; font-size: 1.35rem;
+  letter-spacing: 0.18em; text-transform: uppercase; animation: fadeup 0.7s ease 0.7s both;
+}
+.card--title .tagline { font-style: italic; font-size: 1.1rem; color: var(--secondary); margin-top: 2.2rem; animation: fadeup 0.7s ease 0.85s both; }
+.card--title .count { margin-top: 2.4rem; animation: fadeup 0.7s ease 1s both; }
 /* Limits card */
-.card--limits .card__frame { background: rgba(232, 150, 74, 0.08); border-radius: 12px; padding: 48px 40px; min-height: auto; }
-.card--limits h2 {
-  font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 2rem; color: var(--warm);
-  margin-bottom: 2rem;
+.card--limits .card__frame {
+  background: rgba(180, 67, 60, 0.07); border: 1px solid rgba(180, 67, 60, 0.3);
+  padding: 48px 40px; min-height: auto;
 }
-.limit-row { margin-bottom: 1.6rem; }
-.limit-row h3 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.2rem; margin-bottom: 0.4rem; }
-.limit-row p { font-size: 0.95rem; line-height: 1.5; color: var(--primary); }
+.card--limits h2 { font-weight: 900; font-style: italic; font-size: 2.1rem; color: var(--velvet); margin-bottom: 2rem; }
+.limit-row { margin-bottom: 1.7rem; }
+.limit-row h3 {
+  font-family: var(--mono); font-weight: 700; font-size: 0.95rem;
+  letter-spacing: 0.12em; text-transform: uppercase; color: var(--amber); margin-bottom: 0.4rem;
+}
+.limit-row p { font-size: 1.05rem; line-height: 1.55; }
 /* Coverage card */
-.card--coverage h2 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.6rem; margin-bottom: 1.6rem; }
+.card--coverage h2 { font-weight: 900; font-size: 1.8rem; margin-bottom: 1.8rem; }
 .coverage-grid { width: 100%; border-collapse: collapse; }
 .coverage-grid td {
-  padding: 10px 12px; border-bottom: 1px solid var(--surface);
-  font-weight: 500; font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase;
-  color: var(--secondary); vertical-align: top;
+  padding: 12px 10px; border-bottom: 1px solid var(--surface);
+  font-family: var(--mono); font-size: 0.78rem; letter-spacing: 0.06em;
+  text-transform: uppercase; color: var(--secondary); vertical-align: top;
 }
-.coverage-grid td:first-child { color: var(--primary); }
-.badge { padding: 3px 10px; border-radius: 999px; font-size: 0.7rem; white-space: nowrap; }
-.badge--strong { background: var(--cool); color: var(--bg); }
-.badge--partial { border: 1px solid var(--cool); color: var(--secondary); }
-.badge--none { background: var(--warm); color: var(--bg); }
+.coverage-grid td:first-child { color: var(--primary); font-weight: 700; }
+.badge { padding: 3px 10px; font-size: 0.7rem; font-weight: 700; white-space: nowrap; }
+.badge--strong { background: var(--amber); color: var(--bg); }
+.badge--partial { border: 1px solid var(--amber); color: var(--amber); }
+.badge--none { background: var(--velvet); color: var(--primary); }
 @media (max-width: 480px) {
-  .anchor { font-size: 1.8rem; }
-  .card--title h1 { font-size: 2.4rem; }
-  .card { padding: 48px 20px 40px; }
+  .card { padding: 44px 20px 36px; }
+  .mapping { font-size: 1.1rem; }
 }
-"""
+@media (prefers-reduced-motion: reduce) {
+  .card__frame, .card--title * { animation: none !important; }
+}
+""".replace("__GRAIN__", GRAIN)
 
 JS = """
 document.querySelectorAll('.bridge__toggle').forEach(function (btn) {
@@ -150,18 +202,18 @@ def concept_card(c, total, movie):
     return f"""
   <section class="card card--concept" data-position="{n}">
     <div class="card__frame">
-      <div class="meta-line card__number">Card {n:02d}</div>
+      <div class="mono card__number"><b>{n:02d}</b> / {total:02d}</div>
       <div class="anchor">{e(c["movie_element"])}</div>
-      <div class="accent-line"></div>
+      <div class="sprockets"></div>
       <div class="concept">{e(c["concept"])}</div>
       <p class="mapping">{e(c["mapping_line"])}</p>
       <div class="spacer"></div>
       <div class="break-tag"><strong>Where it breaks</strong>{e(c["break_point"])}</div>
       <div class="bridge" aria-hidden="true">
-        <button class="bridge__toggle" aria-expanded="false" aria-label="Show bridge to reality">&#8617; Back to reality</button>
+        <button class="bridge__toggle" aria-expanded="false" aria-label="Show bridge to reality">Smash cut to: reality</button>
         <p class="bridge__text">{e(c["bridge"])}</p>
       </div>
-      <div class="meta-line card__footer">cine-teach &middot; {e(movie)} &middot; {n}/{total}</div>
+      <div class="mono card__footer">cine-teach &middot; {e(movie)} &middot; {n}/{total}</div>
     </div>
   </section>"""
 
@@ -175,11 +227,13 @@ def render(data):
     sections = [f"""
   <section class="card card--title">
     <div class="card__frame">
-      <div class="meta-line">cine-teach</div>
+      <div class="mono eyebrow">A cine-teach production</div>
       <div class="title-rule"></div>
-      <h1>{e(movie)} &times; {e(topic)}</h1>
-      <p class="topic">One concept, one scene, one card.</p>
-      <div class="meta-line count">{total} cards &middot; coverage {meta["coverage_ratio"]:.0%}</div>
+      <h1>{e(movie)}</h1>
+      <div class="cross">&times;</div>
+      <div class="topic">{e(topic)}</div>
+      <p class="tagline">One concept, one scene, one card.</p>
+      <div class="mono count">{total} cards &middot; coverage {meta["coverage_ratio"]:.0%}</div>
     </div>
   </section>"""]
     sections += [concept_card(c, total, movie) for c in cards]
@@ -194,7 +248,7 @@ def render(data):
     <div class="card__frame">
       <h2>Where the analogy ends</h2>
       {rows}
-      <div class="meta-line card__footer">These ideas are genuinely new &mdash; the movie has no shape for them.</div>
+      <div class="mono card__footer">These ideas are genuinely new &mdash; the movie has no shape for them.</div>
     </div>
   </section>""")
 
@@ -212,7 +266,7 @@ def render(data):
     <div class="card__frame">
       <h2>Coverage</h2>
       <table class="coverage-grid">{rows}</table>
-      <div class="meta-line card__footer">cine-teach &middot; {e(movie)} ({meta["movie_year"]}) &middot; generated {e(meta["generated_at"][:10])}</div>
+      <div class="mono card__footer">cine-teach &middot; {e(movie)} ({meta["movie_year"]}) &middot; generated {e(meta["generated_at"][:10])}</div>
     </div>
   </section>""")
 
@@ -225,7 +279,7 @@ def render(data):
 <title>{e(movie)} &times; {e(topic)} &mdash; cine-teach</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,900;1,9..144,400;1,9..144,900&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
 <style>{CSS}</style>
 </head>
 <body>

@@ -30,16 +30,22 @@ The design has three principles:
 
 ## Palette
 
-Six colors. No gradients, no opacity effects on text.
+Six colors — "tungsten and velvet". Warm near-black, projector-light text, amber
+accent. No gradients on text.
 
 | Role | Hex | Usage |
 |---|---|---|
-| Background | `#0D1117` | Card background, full bleed |
-| Primary text | `#E6EDF3` | Movie anchor, concept label, mapping line |
-| Secondary text | `#8B949E` | Break tag text, metadata, card numbers |
-| Accent warm | `#E8964A` | Concept label underline, highlight on the Limits Card |
-| Accent cool | `#58A6FF` | Movie anchor decorative element, links |
-| Surface | `#161B22` | Break tag background, hover reveal background |
+| Background | `#0A0908` | Card background (warm black), full bleed |
+| Primary text | `#F2EDE4` | Movie anchor, mapping line (projector off-white) |
+| Secondary text | `#A39A8B` | Break tag text, metadata, card numbers (warm gray) |
+| Accent amber | `#E5A00D` | Tungsten amber: concept underline, break slug, sprockets, badges |
+| Accent velvet | `#B4433C` | Velvet red: Limits Card tint/border, `none` badge |
+| Surface | `#141110` | Bridge reveal background, coverage row dividers |
+
+Atmosphere layers (all CSS-only, no images): a fixed radial **vignette**
+(transparent 52% → rgba(0,0,0,.5)), a **film grain** overlay (inline SVG
+feTurbulence data URI at 5% opacity), and 14px **letterbox bars** fixed at the
+top and bottom of the viewport.
 
 The palette is dark-first. A light-mode variant may be added later but is not in
 scope for v1. Dark works better for cinematic feel and performs well on both mobile
@@ -49,22 +55,26 @@ OLED screens and projected presentations.
 
 ## Typography
 
-Two typefaces. Load via Google Fonts.
+Two typefaces, two voices. **The movie speaks in serif; the machinery speaks in
+screenplay Courier.** Load via Google Fonts.
 
-**Display: `Space Grotesk`** (weights: 500, 700)
-- Movie anchor: 700, 2.4rem, letter-spacing -0.02em
-- Concept label: 700, 1.6rem, letter-spacing 0.01em
-- Title card headings: 700, 3.2rem
+**Display/body: `Fraunces`** (weights: 400, 900; italics) — the movie's voice
+- Movie anchor: 900, clamp(2.1rem, 6vw, 3rem), letter-spacing -0.01em, line-height 1.06
+- Mapping line: 400, 1.25rem, line-height 1.55
+- Title card movie name: 900, clamp(3rem, 10vw, 4.6rem)
+- Limits card heading: 900 italic
+- Taglines: 400 italic
 
-**Body: `Inter`** (weights: 400, 500)
-- Mapping line: 400, 1.1rem, line-height 1.5
-- Break tag: 400, 0.85rem, line-height 1.4
-- Bridge (on reveal/back): 400, 1.0rem
-- Metadata and card numbers: 500, 0.75rem, letter-spacing 0.08em, uppercase
+**Technical/metadata: `Courier Prime`** (weights: 400, 700) — the screenplay voice
+- Concept label: 700, 1.05rem, letter-spacing 0.12em, uppercase, amber 3px underline
+- Break tag: 400, 0.88rem, line-height 1.5; slug label 700, 0.72rem, uppercase, amber
+- Bridge (on reveal/back): 400, 0.92rem
+- Metadata, card numbers, footers: 400, 0.78rem, letter-spacing 0.14em, uppercase
+- Coverage grid, badges, buttons
 
 Import:
 ```
-https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500&display=swap
+https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,900;1,9..144,400;1,9..144,900&family=Courier+Prime:wght@400;700&display=swap
 ```
 
 ---
@@ -92,7 +102,8 @@ full pixel dimensions.
 │  │  MOVIE ANCHOR       │    │  <- 2.4rem display, primary text
 │  │  (2-3 lines max)    │    │
 │  │                     │    │
-│  │  ── accent line ──  │    │  <- 2px warm accent, 48px wide
+│  │  ▪ ▪ ▪ ▪ ▪ ▪ ──── │    │  <- sprocket divider: film-strip motif,
+│  │                     │    │     repeating amber squares, 128×11px
 │  │                     │    │
 │  │  CONCEPT LABEL      │    │  <- 1.6rem display, primary text
 │  │                     │    │     underlined with warm accent
@@ -127,22 +138,22 @@ Right column (45%): mapping line + break tag. Footer spans full width.
 - Topic below in body font, 1.1rem, secondary text
 - Card count: "6 cards" in metadata style
 - No break tag zone
-- Accent cool used for a decorative element (thin border, geometric shape, or
-  character silhouette described in text — not an image)
+- Amber eyebrow ("A cine-teach production" in Courier) above a thin rule; movie
+  name in Fraunces 900; topic in letterspaced Courier caps — the two-voice pairing
+  is the decorative element (no images)
 
 ### Limits card
 
 - Titled "Where the analogy ends" in display font, warm accent
 - Each unmapped concept as a row: concept label (display, 1.2rem) + direct
   explanation (body, 0.95rem)
-- Background uses a subtle warm accent tint (#E8964A at 8% opacity) to visually
+- Background uses a subtle warm accent tint (velvet red #B4433C at 7% opacity, with a 30% velvet border) to visually
   differentiate from concept cards
 
 ### Coverage card (optional, 5+ cards)
 
 - Compact grid: concept → movie element → verdict badge
-- Verdict badges: `strong` = accent cool, `partial` = secondary text with cool
-  border, `none` = warm accent
+- Verdict badges: `strong` = amber fill, `partial` = amber outline, `none` = velvet fill
 - Metadata font throughout
 - Useful as a quick-reference when sharing the deck
 
@@ -201,7 +212,7 @@ The bridge sentence is hidden by default and revealed on click/tap:
 ```html
 <div class="bridge" aria-hidden="true">
   <button class="bridge__toggle" aria-label="Show bridge to reality">
-    ↩ Back to reality
+    Smash cut to: reality
   </button>
   <p class="bridge__text">{bridge sentence}</p>
 </div>
@@ -239,9 +250,9 @@ discrepancy is a bug in the export, not a reason to modify the HTML.
 
 ## Accessibility
 
-- All text meets WCAG AA contrast against background (verified: #E6EDF3 on #0D1117
-  is 13.1:1; #8B949E on #0D1117 is 4.6:1).
-- Break tag background (#161B22) provides sufficient contrast for secondary text.
+- All text meets WCAG AA contrast against background (#F2EDE4 on #0A0908 is ~16:1;
+  #A39A8B on #0A0908 is ~7:1; #E5A00D on #0A0908 is ~8:1).
+- Scroll-driven entry animations respect `prefers-reduced-motion: reduce`.
 - Bridge toggle is keyboard-accessible.
 - `lang` attribute set on `<html>` per the deck's language.
 - Scroll-snap does not trap keyboard navigation.
