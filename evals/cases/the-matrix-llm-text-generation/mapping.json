@@ -1,0 +1,114 @@
+{
+  "meta": {
+    "movie": "The Matrix",
+    "movie_year": 1999,
+    "topic": "How LLMs Generate Text",
+    "source_type": "structured",
+    "language": "EN",
+    "audience": "technical generalist",
+    "coverage_ratio": 0.8,
+    "generated_at": "2026-07-06T12:00:00Z"
+  },
+  "cards": [
+    {
+      "id": "concept_02",
+      "position": 1,
+      "concept": "Training data",
+      "definition": "The vast corpus of text a model learns statistical patterns from; it can only reproduce patterns present in that corpus.",
+      "source_location": "structured input",
+      "movie_element": "Neo's skill uploads — \"I know kung fu\"",
+      "movie_element_detail": "Strapped into the chair on the Nebuchadnezzar, Neo has martial-arts training programs loaded directly into his mind; seconds later he opens his eyes and says \"I know kung fu.\" Everything he can now do came from pre-recorded programs, not lived experience.",
+      "mapping_line": "Neo can only fight the ways his uploaded programs taught him — nothing he was never shown.",
+      "mechanism_match": "partial",
+      "mapping_verdict": "partial",
+      "break_point": "Neo keeps a perfect copy of every program; a model keeps no copy — only blended statistical habits squeezed out of the material.",
+      "break_category": "extra_mechanism",
+      "bridge": "Training compresses billions of sentences into pattern weights; the model reconstructs from those patterns rather than looking anything up.",
+      "scores": {
+        "mechanism_fidelity": 3,
+        "recognizability": 5,
+        "breakage_clarity": 4,
+        "caption_writability": 4,
+        "overall": 4.0
+      }
+    },
+    {
+      "id": "concept_01",
+      "position": 2,
+      "concept": "Next-token prediction",
+      "definition": "The model generates text one token at a time, each chosen as a likely continuation of everything before it.",
+      "source_location": "structured input",
+      "movie_element": "The Oracle and the vase",
+      "movie_element_detail": "The Oracle says \"don't worry about the vase\" a beat before Neo turns and knocks it over. She predicts his next move from everything observed so far — and her prediction itself becomes part of what makes the moment happen, as she teases: \"would you still have broken it if I hadn't said anything?\"",
+      "mapping_line": "Like the Oracle with the vase, it just calls the next move from everything seen so far.",
+      "mechanism_match": "partial",
+      "mapping_verdict": "partial",
+      "break_point": "The Oracle understands people and sees far ahead; the model understands nothing and only rates which word is likely to come next.",
+      "break_category": "extra_mechanism",
+      "bridge": "Each word the model emits is picked from probability scores, then fed back in as context for picking the next one.",
+      "scores": {
+        "mechanism_fidelity": 3,
+        "recognizability": 4,
+        "breakage_clarity": 4,
+        "caption_writability": 4,
+        "overall": 3.8
+      }
+    },
+    {
+      "id": "concept_04",
+      "position": 3,
+      "concept": "Hallucination",
+      "definition": "The model produces fluent, confident statements that are false, because it optimizes for plausible continuation, not factual truth.",
+      "source_location": "structured input",
+      "movie_element": "Cypher's steak dinner",
+      "movie_element_detail": "Cypher dines with Agent Smith inside the Matrix: \"I know this steak doesn't exist. I know that when I put it in my mouth, the Matrix is telling my brain that it is juicy and delicious.\" The steak is completely convincing and completely unreal.",
+      "mapping_line": "Cypher's steak tastes perfectly real and doesn't exist — convincing and true are different things.",
+      "mechanism_match": "partial",
+      "mapping_verdict": "partial",
+      "break_point": "The Matrix lies on purpose; the model has no deceiver behind it — it simply cannot tell made-up from real.",
+      "break_category": "extra_mechanism",
+      "bridge": "The model scores word sequences by plausibility learned from text; nothing in that score checks the claim against the world.",
+      "scores": {
+        "mechanism_fidelity": 3,
+        "recognizability": 4,
+        "breakage_clarity": 5,
+        "caption_writability": 5,
+        "overall": 4.3
+      }
+    },
+    {
+      "id": "concept_05",
+      "position": 4,
+      "concept": "Context",
+      "definition": "The bounded working text — prompt plus conversation so far — that the model can actually see when generating.",
+      "source_location": "structured input",
+      "movie_element": "The Construct loading program",
+      "movie_element_detail": "The white void where Morpheus tells Neo \"this is the Construct, our loading program — we can load anything we need.\" Before the rescue, racks of weapons slide in when Neo asks for \"guns, lots of guns.\" Whatever is loaded there is what the crew has for that run.",
+      "mapping_line": "The Construct holds only what the crew loads for this run — that is all Neo gets.",
+      "mechanism_match": "strong",
+      "mapping_verdict": "strong",
+      "break_point": "Morpheus says they can load anything; the real workspace has a hard size limit, and the oldest material gets pushed out.",
+      "break_category": "missing_mechanism",
+      "bridge": "The context window is that loading space: a fixed-size buffer of text the model reads fresh on every single request.",
+      "scores": {
+        "mechanism_fidelity": 4,
+        "recognizability": 4,
+        "breakage_clarity": 5,
+        "caption_writability": 4,
+        "overall": 4.3
+      }
+    }
+  ],
+  "overflow": [],
+  "unmapped": [
+    {
+      "id": "concept_03",
+      "concept": "Sampling temperature",
+      "definition": "A dial controlling how randomly the model picks among likely next words — low is predictable, high is varied.",
+      "source_location": "structured input",
+      "direct_explanation": "Temperature is a randomness dial: at zero the model always picks its single most likely next word, so output is repetitive and safe; turning it up lets the model gamble on less likely words, trading reliability for variety and surprise.",
+      "closest_movie_element": "Rule-bound Agents versus unpredictable humans",
+      "why_no_mapping": "The film opposes deterministic Agents to free humans as separate beings; no mechanism tunes a single system between predictable and random behavior."
+    }
+  ]
+}

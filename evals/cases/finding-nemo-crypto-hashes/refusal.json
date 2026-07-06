@@ -1,0 +1,11 @@
+{
+  "movie": "Finding Nemo",
+  "topic": "Cryptographic Hash Functions",
+  "coverage_ratio": 0.4,
+  "explanation": "Only 2 of 5 concepts (one-way functions via the East Australian Current, avalanche effect via Nemo touching the boat) have even partial mechanism-level matches, while collision resistance, salting, and Merkle trees have no analogous mechanism anywhere in the film.",
+  "alternatives": [
+    "Memento (2000) — irreversible memory loss maps to one-wayness, and Leonard's tattoos behave like tamper-evident commitments",
+    "The Imitation Game (2014) — a genuinely cryptographic setting with adversaries, giving natural homes to collision hunting and salting-style countermeasures",
+    "Sneakers (1992) — an adversarial cryptography plot where verification, integrity, and 'no way back once broken' mechanics appear on screen"
+  ]
+}

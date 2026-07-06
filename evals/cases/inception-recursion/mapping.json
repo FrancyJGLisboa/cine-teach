@@ -1,0 +1,101 @@
+{
+  "meta": {
+    "movie": "Inception",
+    "movie_year": 2010,
+    "topic": "Recursion and the Call Stack",
+    "source_type": "structured",
+    "language": "EN",
+    "audience": "technical generalist",
+    "coverage_ratio": 0.6,
+    "generated_at": "2026-07-06T12:00:00Z"
+  },
+  "cards": [
+    {
+      "id": "concept_01",
+      "position": 1,
+      "concept": "Recursive calls",
+      "definition": "A function that solves a problem by calling itself on a smaller piece of the same problem.",
+      "source_location": "structured input",
+      "movie_element": "The dream-within-a-dream descent",
+      "movie_element_detail": "The team goes to sleep inside a dream to open another dream one level deeper — the rainy city, then the hotel, then the snow fortress. The same act of dreaming, performed again from inside itself, produces each new nested level.",
+      "mapping_line": "Going to sleep inside a dream starts another dream — the same move, nested one level deeper.",
+      "mechanism_match": "strong",
+      "mapping_verdict": "strong",
+      "break_point": "Each dream level is a different world; a recursive call re-runs the exact same code with new inputs.",
+      "break_category": "missing_mechanism",
+      "bridge": "A function that calls itself starts a new nested run of the same instructions, each with its own inputs.",
+      "scores": {
+        "mechanism_fidelity": 4,
+        "recognizability": 5,
+        "breakage_clarity": 4,
+        "caption_writability": 5,
+        "overall": 4.5
+      }
+    },
+    {
+      "id": "concept_03",
+      "position": 2,
+      "concept": "Base case",
+      "definition": "The condition under which a recursive function stops calling itself and simply returns a result.",
+      "source_location": "structured input",
+      "movie_element": "Planting the idea in Fischer's vault at the deepest planned level",
+      "movie_element_detail": "The mission has a defined stopping point: descend until Fischer opens the vault in the snow fortress and the idea takes hold. Once that condition is met, there is no reason to go deeper — the team turns around and rides the kicks back up.",
+      "mapping_line": "The team stops descending only when the idea is planted — without that goal, they'd sink forever.",
+      "mechanism_match": "partial",
+      "mapping_verdict": "partial",
+      "break_point": "Recursion checks its stopping condition at every single level; the team plans a fixed depth in advance.",
+      "break_category": "missing_mechanism",
+      "bridge": "A base case is a test at the top of the function: if met, return immediately instead of calling again.",
+      "scores": {
+        "mechanism_fidelity": 3,
+        "recognizability": 4,
+        "breakage_clarity": 4,
+        "caption_writability": 4,
+        "overall": 3.8
+      }
+    },
+    {
+      "id": "concept_04",
+      "position": 3,
+      "concept": "Stack unwinding",
+      "definition": "As each call finishes, control returns to its caller in reverse order, innermost first.",
+      "source_location": "structured input",
+      "movie_element": "The synchronized kicks riding back up, level by level",
+      "movie_element_detail": "Escape happens innermost-first: the fortress charges blow, Arthur's zero-gravity elevator detonates, the van hits the water. Each kick carries the sleepers exactly one level up, in strict deepest-to-shallowest order — no level can be skipped.",
+      "mapping_line": "You can't skip levels on the way out — each kick returns you exactly one dream up.",
+      "mechanism_match": "strong",
+      "mapping_verdict": "strong",
+      "break_point": "A kick can be missed and leave you stranded; a function return never skips or fails to reach its caller.",
+      "break_category": "extra_mechanism",
+      "bridge": "When a call finishes, control returns to the caller automatically, innermost calls always finishing first.",
+      "scores": {
+        "mechanism_fidelity": 4,
+        "recognizability": 5,
+        "breakage_clarity": 4,
+        "caption_writability": 5,
+        "overall": 4.5
+      }
+    }
+  ],
+  "overflow": [],
+  "unmapped": [
+    {
+      "id": "concept_02",
+      "concept": "Stack frames",
+      "definition": "Each call gets its own private workspace of local variables and a return address, stacked on top of the caller's.",
+      "source_location": "structured input",
+      "direct_explanation": "Each function call gets a private workspace of local variables that no other call can touch; only the deepest call is ever running.",
+      "closest_movie_element": "The nested dream levels",
+      "why_no_mapping": "Dream levels run concurrently and causally interfere — the van's freefall produces the hotel's zero gravity — violating the isolation that defines a stack frame."
+    },
+    {
+      "id": "concept_05",
+      "concept": "Stack overflow",
+      "definition": "When nested calls exceed the stack's fixed memory, the program crashes; usually caused by a missing or unreachable base case.",
+      "source_location": "structured input",
+      "direct_explanation": "Every nested call reserves a slice of a fixed memory region; recursion without a reachable base case exhausts it and the program crashes.",
+      "closest_movie_element": "Falling into limbo",
+      "why_no_mapping": "Heist-limbo is entered by dying under heavy sedation, not by a depth budget; even Cobb and Mal's deeper experiments exhaust no finite per-level resource."
+    }
+  ]
+}

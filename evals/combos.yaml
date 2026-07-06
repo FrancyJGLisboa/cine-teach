@@ -1,0 +1,63 @@
+# cine-teach eval combos — 5 movie × topic pairs.
+# Four should produce full decks; finding-nemo-crypto-hashes is a deliberate
+# bad fit and MUST produce a refusal (coverage < 0.5), not a forced deck.
+
+- slug: the-matrix-llm-text-generation
+  movie: "The Matrix"
+  movie_year: 1999
+  topic: "How LLMs Generate Text"
+  expected: deck
+  concepts:
+    - "Next-token prediction"
+    - "Training data"
+    - "Sampling temperature"
+    - "Hallucination"
+    - "Context"
+
+- slug: memento-rag
+  movie: "Memento"
+  movie_year: 2000
+  topic: "Retrieval-Augmented Generation"
+  expected: deck
+  concepts:
+    - "External knowledge store"
+    - "Retrieval"
+    - "Context injection"
+    - "Source provenance"
+    - "Chunking"
+
+- slug: inception-recursion
+  movie: "Inception"
+  movie_year: 2010
+  topic: "Recursion and the Call Stack"
+  expected: deck
+  concepts:
+    - "Recursive calls"
+    - "Stack frames"
+    - "Base case"
+    - "Stack unwinding"
+    - "Stack overflow"
+
+- slug: finding-nemo-crypto-hashes
+  movie: "Finding Nemo"
+  movie_year: 2003
+  topic: "Cryptographic Hash Functions"
+  expected: refusal   # suitability gate must fire: coverage < 0.5
+  concepts:
+    - "One-way functions"
+    - "Collision resistance"
+    - "Avalanche effect"
+    - "Salting"
+    - "Merkle trees"
+
+- slug: jurassic-park-software-testing
+  movie: "Jurassic Park"
+  movie_year: 1993
+  topic: "Software Testing and Chaos Engineering"
+  expected: deck
+  concepts:
+    - "Edge cases"
+    - "Testing in production"
+    - "Single point of failure"
+    - "Fault injection"
+    - "Cascading failure"

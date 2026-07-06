@@ -153,7 +153,9 @@ Building in public. Current state:
 - [ ] PNG export via Playwright
 - [ ] PDF export
 - [x] GitHub Pages hosting for example decks — https://francyjglisboa.github.io/cine-teach/
-- [ ] Eval suite: 5 movie × topic combinations tested against the rubric
+- [x] Eval suite: 5 movie × topic combinations tested against the rubric
+  (`evals/` — deterministic grader + adversarial LLM judges; first run report in
+  `evals/results/`)
 
 ## License
 

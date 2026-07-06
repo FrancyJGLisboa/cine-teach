@@ -1,0 +1,126 @@
+{
+  "meta": {
+    "movie": "Jurassic Park",
+    "movie_year": 1993,
+    "topic": "Software Testing and Chaos Engineering",
+    "source_type": "structured",
+    "language": "EN",
+    "audience": "technical generalist",
+    "coverage_ratio": 1.0,
+    "generated_at": "2026-07-06T12:00:00Z"
+  },
+  "cards": [
+    {
+      "id": "concept_03",
+      "position": 1,
+      "concept": "Single point of failure",
+      "definition": "A component whose failure alone brings down the entire system, because nothing redundant can take its place.",
+      "source_location": "structured input",
+      "movie_element": "Dennis Nedry, the park's only programmer",
+      "movie_element_detail": "Nedry alone wrote and understands the park's control software. When he shuts down security to steal embryos and dies in the storm, nobody can restore the system — Arnold admits they cannot get Jurassic Park back online without Dennis Nedry.",
+      "mapping_line": "One disgruntled programmer walks out, and the entire park goes down with him.",
+      "mechanism_match": "strong",
+      "mapping_verdict": "strong",
+      "break_point": "Nedry sabotaged the park deliberately; real single points of failure usually break innocently — the danger is the dependence, not betrayal.",
+      "break_category": "extra_mechanism",
+      "bridge": "Redundancy is the fix: no system should have one person, machine, or program that everything else depends on.",
+      "scores": {
+        "mechanism_fidelity": 4,
+        "recognizability": 5,
+        "breakage_clarity": 5,
+        "caption_writability": 5,
+        "overall": 4.8
+      }
+    },
+    {
+      "id": "concept_01",
+      "position": 2,
+      "concept": "Edge cases",
+      "definition": "Inputs or conditions at the boundary of design assumptions, where untested behavior causes failures.",
+      "source_location": "structured input",
+      "movie_element": "All-female dinosaurs breeding via frog DNA",
+      "movie_element_detail": "The park engineered every dinosaur female so the population could not breed. But gaps in the ancient DNA were filled with frog DNA, which lets some animals change sex. Grant finds hatched eggs in the wild — Malcolm's warning that 'life finds a way' comes true.",
+      "mapping_line": "Every dinosaur engineered female — until frog DNA let life find a way nobody planned for.",
+      "mechanism_match": "strong",
+      "mapping_verdict": "strong",
+      "break_point": "The frog DNA was unknowable in advance; most edge cases are boundaries engineers can list and test before launch.",
+      "break_category": "missing_mechanism",
+      "bridge": "Testers hunt the strange inputs and rare conditions a design silently assumes away — before nature, or a user, finds them first.",
+      "scores": {
+        "mechanism_fidelity": 4,
+        "recognizability": 5,
+        "breakage_clarity": 4,
+        "caption_writability": 5,
+        "overall": 4.5
+      }
+    },
+    {
+      "id": "concept_02",
+      "position": 3,
+      "concept": "Testing in production",
+      "definition": "Validating system behavior in the live environment, because real conditions cannot be fully replicated elsewhere.",
+      "source_location": "structured input",
+      "movie_element": "The first tour through the park",
+      "movie_element_detail": "Hammond sends his expert endorsers and his own grandchildren on the park's first guided tour before it has ever run with visitors. Nothing behaves as scripted — dinosaurs fail to appear, the T. rex ignores the goat — and when the systems fail, the visitors are physically inside the paddocks.",
+      "mapping_line": "The park's first visitors were also its first real test — with live dinosaurs.",
+      "mechanism_match": "partial",
+      "mapping_verdict": "partial",
+      "break_point": "Hammond exposed everyone at once; real production testing limits who is exposed and keeps a kill switch ready.",
+      "break_category": "missing_mechanism",
+      "bridge": "Some behavior only appears under real traffic, so engineers test live — but on a small, watched, reversible slice.",
+      "scores": {
+        "mechanism_fidelity": 4,
+        "recognizability": 5,
+        "breakage_clarity": 4,
+        "caption_writability": 4,
+        "overall": 4.2
+      }
+    },
+    {
+      "id": "concept_05",
+      "position": 4,
+      "concept": "Cascading failure",
+      "definition": "A failure in one component triggers failures in dependent components, spreading until the whole system collapses.",
+      "source_location": "structured input",
+      "movie_element": "The full-system reboot that dropped the raptor fences",
+      "movie_element_detail": "Nedry's sabotage locks the staff out, so Hammond orders a total shutdown to reset the system. Power must be restored manually from the maintenance shed, and in that gap the raptor fences — which Nedry had left on — lose power. The raptors escape, Arnold and Muldoon are killed, and the collapse spreads through the park.",
+      "mapping_line": "Rebooting the park to fix one problem dropped every fence and freed the raptors.",
+      "mechanism_match": "strong",
+      "mapping_verdict": "strong",
+      "break_point": "The park's collapse needed hunters exploiting each gap; real cascades spread passively, as each failure overloads whatever still stands.",
+      "break_category": "missing_mechanism",
+      "bridge": "Engineers add circuit breakers and isolation so one component's failure stops there instead of taking its neighbors down.",
+      "scores": {
+        "mechanism_fidelity": 4,
+        "recognizability": 4,
+        "breakage_clarity": 4,
+        "caption_writability": 5,
+        "overall": 4.2
+      }
+    },
+    {
+      "id": "concept_04",
+      "position": 5,
+      "concept": "Fault injection",
+      "definition": "Deliberately introducing failures into a system to discover weaknesses before they cause real outages.",
+      "source_location": "structured input",
+      "movie_element": "The raptors systematically testing the fences",
+      "movie_element_detail": "Muldoon warns that the raptors attack the fences in a different place every time, testing them for weaknesses, systematically — and that they remember. They are methodically searching the park's defenses for the gap that will let them out.",
+      "mapping_line": "Attack your own fences the way raptors do — before real teeth find the gaps.",
+      "mechanism_match": "partial",
+      "mapping_verdict": "partial",
+      "break_point": "The raptors probe to escape and kill; fault injection is the defenders probing themselves, safely and on purpose.",
+      "break_category": "reversed_agency",
+      "bridge": "Chaos engineering makes you the raptor: deliberately break parts of your own system to find weaknesses while stakes are low.",
+      "scores": {
+        "mechanism_fidelity": 3,
+        "recognizability": 4,
+        "breakage_clarity": 4,
+        "caption_writability": 4,
+        "overall": 3.8
+      }
+    }
+  ],
+  "overflow": [],
+  "unmapped": []
+}

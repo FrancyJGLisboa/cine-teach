@@ -1,0 +1,126 @@
+{
+  "meta": {
+    "movie": "Memento",
+    "movie_year": 2000,
+    "topic": "Retrieval-Augmented Generation",
+    "source_type": "structured",
+    "language": "EN",
+    "audience": "technical generalist",
+    "coverage_ratio": 1.0,
+    "generated_at": "2026-07-06T12:00:00Z"
+  },
+  "cards": [
+    {
+      "id": "concept_01",
+      "position": 1,
+      "concept": "External knowledge store",
+      "definition": "A persistent body of documents kept outside the model, holding facts the model was never trained on or cannot reliably recall.",
+      "source_location": "structured input",
+      "movie_element": "Leonard's Polaroids, notes, and tattoos",
+      "movie_element_detail": "Leonard Shelby cannot form new long-term memories, so he keeps everything he must not lose outside his head: annotated Polaroid photos, handwritten notes, and tattoos reserved for the facts that matter most. The archive persists perfectly while his mind retains nothing.",
+      "mapping_line": "Leonard can't hold new memories, so he keeps what he must know on photos, notes, and skin.",
+      "mechanism_match": "strong",
+      "mapping_verdict": "strong",
+      "break_point": "Leonard's archive holds only what one man could write; real systems store millions of documents no single author ever curated.",
+      "break_category": "scale_mismatch",
+      "bridge": "The store is a database of documents kept outside the model, searched at question time instead of memorized during training.",
+      "scores": {
+        "mechanism_fidelity": 5,
+        "recognizability": 5,
+        "breakage_clarity": 4,
+        "caption_writability": 5,
+        "overall": 4.8
+      }
+    },
+    {
+      "id": "concept_05",
+      "position": 2,
+      "concept": "Chunking",
+      "definition": "Splitting documents into small self-contained pieces sized for retrieval and for fitting into the model's limited input.",
+      "source_location": "structured input",
+      "movie_element": "The numbered fact tattoos and one-caption Polaroids",
+      "movie_element_detail": "Leonard's knowledge is broken into small self-contained units: numbered 'Fact' tattoos and photos carrying a single handwritten caption. Each unit must stand alone, because whoever reads it next — future Leonard — arrives with no surrounding context and only a short window to act.",
+      "mapping_line": "Every fact gets its own tattoo or photo caption, small enough to grasp before his memory resets.",
+      "mechanism_match": "partial",
+      "mapping_verdict": "partial",
+      "break_point": "Leonard writes each note as a complete thought; automated splitting is mechanical and can cut an idea in half at the seams.",
+      "break_category": "missing_mechanism",
+      "bridge": "Documents are split into passage-sized pieces so the search can return just the relevant fragment, not a whole book.",
+      "scores": {
+        "mechanism_fidelity": 3,
+        "recognizability": 4,
+        "breakage_clarity": 4,
+        "caption_writability": 4,
+        "overall": 3.8
+      }
+    },
+    {
+      "id": "concept_02",
+      "position": 3,
+      "concept": "Retrieval",
+      "definition": "Finding the stored pieces most relevant to the current question, typically by comparing meaning rather than exact words.",
+      "source_location": "structured input",
+      "movie_element": "Leonard checking his Polaroids to identify who he's facing",
+      "movie_element_detail": "When Leonard meets someone, he flips through his Polaroids until he finds their photo and reads the caption — pulling the one stored record relevant to the situation in front of him, then acting on it.",
+      "mapping_line": "Faced with a stranger, Leonard flips through his photos and pulls the one that matches.",
+      "mechanism_match": "strong",
+      "mapping_verdict": "strong",
+      "break_point": "Leonard matches faces by eye; real search matches meaning mathematically, ranking thousands of candidates in milliseconds without anyone looking.",
+      "break_category": "missing_mechanism",
+      "bridge": "A search engine compares the question's meaning against every stored piece and returns the closest matches automatically.",
+      "scores": {
+        "mechanism_fidelity": 4,
+        "recognizability": 5,
+        "breakage_clarity": 4,
+        "caption_writability": 5,
+        "overall": 4.5
+      }
+    },
+    {
+      "id": "concept_03",
+      "position": 4,
+      "concept": "Context injection",
+      "definition": "Placing retrieved text into the model's input for one request, so it can use facts it never memorized.",
+      "source_location": "structured input",
+      "movie_element": "'Don't believe his lies' guiding Leonard's next move",
+      "movie_element_detail": "The caption on Teddy's Polaroid — 'Don't believe his lies' — enters Leonard's awareness the moment he reads it and steers everything he does, but only until the next reset, when he must pull the photo out and read it again.",
+      "mapping_line": "The note works only while he's reading it — next reset, he must pull it out again.",
+      "mechanism_match": "strong",
+      "mapping_verdict": "strong",
+      "break_point": "Leonard obeys his notes absolutely; a model treats added text as one input it can weigh, doubt, or ignore.",
+      "break_category": "extra_mechanism",
+      "bridge": "Retrieved passages are pasted into the prompt beside the question; the model reads them fresh on every single request.",
+      "scores": {
+        "mechanism_fidelity": 4,
+        "recognizability": 5,
+        "breakage_clarity": 5,
+        "caption_writability": 4,
+        "overall": 4.5
+      }
+    },
+    {
+      "id": "concept_04",
+      "position": 5,
+      "concept": "Source provenance",
+      "definition": "Tracking which document each retrieved fact came from, so answers can be attributed and verified.",
+      "source_location": "structured input",
+      "movie_element": "Leonard tattooing a false 'fact' for his future self",
+      "movie_element_detail": "Leonard trusts records because of their origin — his own handwriting, ink on his own skin. In the ending, after Teddy tells him the truth, Leonard deliberately writes down Teddy's license plate as a new fact, planting a false record his future self will treat as verified evidence.",
+      "mapping_line": "Future Leonard trusts the tattoo completely because he can't ask who wrote it down, or why.",
+      "mechanism_match": "strong",
+      "mapping_verdict": "strong",
+      "break_point": "Real systems can show the original document for readers to check; Leonard has no way to re-verify where a note came from.",
+      "break_category": "missing_mechanism",
+      "bridge": "Answers cite which document each claim came from, so a human can open the source and judge its reliability.",
+      "scores": {
+        "mechanism_fidelity": 4,
+        "recognizability": 4,
+        "breakage_clarity": 4,
+        "caption_writability": 4,
+        "overall": 4.0
+      }
+    }
+  ],
+  "overflow": [],
+  "unmapped": []
+}
